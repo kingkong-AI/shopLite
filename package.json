@@ -4,12 +4,19 @@
   "description": "eCommerce Application",
   "type": "module",
   "main": "server.js",
-  "scripts": {
-    "start": "node backend/server.js"
+  "scripts": { 
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "Akshat Jain",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
   }
 }
