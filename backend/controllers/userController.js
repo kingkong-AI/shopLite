@@ -106,11 +106,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         }
         const updatedUser = await user.save();
 
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            expires: new Date(0),
+        });
+        
         res.status(200).json({
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,
+            message: 'User Updated, login again'
         });
     } else {
         res.status(404);
