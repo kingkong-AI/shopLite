@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom"
-import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, usePayOrderMutation } from "../slices/ordersApiSlice";
+import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, usePayOrderMutation, useDeliverOrderMutation } from "../slices/ordersApiSlice";
 import { Button, Row, Col, ListGroup, Card,Image } from "react-bootstrap"
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -15,6 +15,8 @@ const OrderScreen = () => {
     const {data: order, refetch, isLoading, error} = useGetOrderDetailsQuery(orderId);
 
     const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation();
+
+    const [deliverOrder, {isLoading: loadingDeliver}] = useDeliverOrderMutation();
 
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
 
@@ -80,6 +82,16 @@ const OrderScreen = () => {
 
     function onError(err) {
         toast.error(err.message);
+    }
+
+    const deliverOrderHandler = async () => {
+        try {
+            await deliverOrder({orderId});
+            refetch();
+            toast.success('Order delivered');
+        } catch (err) {
+            toast.error(err?.data?.message || err.message);
+        }
     }
      
     return isLoading ? <Loader /> : error ? <Message variant="danger"/> : (
@@ -216,6 +228,14 @@ const OrderScreen = () => {
 
                         )}
                     </ListGroup.Item>}
+                    { loadingDeliver && <Loader/>}
+                    { userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                        <ListGroup.Item>
+                            <Button type="button" className="btn btn-block" onClick={deliverOrderHandler}>
+                                Mark As Delivered
+                            </Button>
+                        </ListGroup.Item>
+                    )}
                 </ListGroup>
             </Card>
         </Col>
