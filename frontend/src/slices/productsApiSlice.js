@@ -8,6 +8,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 url: PRODUCTS_URL,
             }),
             keepUnusedDataFor: 5,
+            providesTags: ['Products']
         }),
 
         getProductDetails: builder.query({
@@ -26,11 +27,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         }),
         updateProduct: builder.mutation({
             query: (data) => ({
-                url: `${PRODUCTS_URL}/${data._id}`,
+                url: `${PRODUCTS_URL}/${data.productId}`,
                 method: 'PUT',
                 body: data,
             }),
-            invalidatesTags: ['Product'], //used to clear the cache
+            invalidatesTags: ['Products'], //used to clear the cache
         }),
     }),
 });
