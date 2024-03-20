@@ -18,9 +18,9 @@ const ProductEditScreen = () => {
     const [countInStock, setCountInStock] = useState(0);
     const [description, setDescription] = useState('');
 
-    const {data: product, isLoading, refetch, error} = useGetProductDetailsQuery(productId);
+    const {data: product, isLoading, error} = useGetProductDetailsQuery(productId);
     const [updateProduct, {isLoading: loadingUpdate}] = useUpdateProductMutation();
-    const [uploadProductImage, {isLoading: loadingUpload}] = useUploadProductImageMutation();
+    const [uploadProductImage] = useUploadProductImageMutation();
     
     const navigate = useNavigate();
 
