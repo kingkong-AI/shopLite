@@ -111,20 +111,6 @@ const createProductReview = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error('Resource Not Found');
     }
-
-    // const product = new Product({
-    //     name: 'sample name',
-    //     price: 0,
-    //     user: req.user._id,
-    //     image: '/images/sample.jpg',
-    //     brand: 'Sample brand',
-    //     category: 'Sample category',
-    //     countInStock: 0,
-    //     numReviews: 0,
-    //     description: 'Sample Description',
-    // });
-    // const createdProduct = await product.save();
-    // res.status(201).json(createdProduct);
 });
 
 

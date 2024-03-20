@@ -3,7 +3,7 @@ import { Table, Button, Row, Col } from "react-bootstrap"
 import { FaEdit, FaTrash } from "react-icons/fa"
 import Message from "../../components/Message"
 import Loader from "../../components/Loader"
-import { useGetProductsQuery, useCreateProductMutation, useDeletepProductMutation } from "../../slices/productsApiSlice"
+import { useGetProductsQuery, useCreateProductMutation, useDeleteProductMutation } from "../../slices/productsApiSlice"
 import {toast} from 'react-toastify'
 
 const ProductListScreen = () => {
@@ -12,7 +12,7 @@ const ProductListScreen = () => {
 
     const [createProduct, {isLoading: loadingCreate}] = useCreateProductMutation();
 
-    const [deleteProduct, {isLoading: loadingDelete}] = useDeletepProductMutation();
+    const [deleteProduct, {isLoading: loadingDelete}] = useDeleteProductMutation();
 
     const deleteHandler = async (id) => {
         if(window.confirm('Are you sure you want to delete the product?')) {
